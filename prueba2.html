@@ -1,0 +1,47 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 1</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() {
+    game.load.image('tatami', 'assets/escenario/tatami1.png');
+    game.load.image('ground', 'assets/platform.png');
+    game.load.image('star', 'assets/star.png');
+    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    
+    
+}
+
+function create() {
+    
+    //Widgth and heigth tatami control variables
+    var tatami_width = 0, tatami_heigth = 0;
+for (tatami_heigth = 0; tatami_heigth < 300; tatami_heigth+= 30) {
+        for (tatami_width = 0; tatami_width < 600; tatami_width+= 30) {
+         game.add.sprite(100+tatami_width, 100+tatami_heigth, 'tatami');
+       
+            };
+    };
+   
+}
+
+function update() {
+}
+    </script>
+    
+</body>
+</html>
