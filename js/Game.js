@@ -22,8 +22,8 @@ NombreJuego.Game.prototype = {
 
             "images":[
                 {
-                    "id":"mapaLv1",
-                    "path":"assets/mapaLv1.png",
+                    "id":"ciudadmontaña",
+                    "path":"assets/ciudadmontaña.png",
                     "posX": 0,
                     "posY": 0,
                 },
@@ -60,7 +60,7 @@ NombreJuego.Game.prototype = {
     create: function () {
         
         // BORDE DEL MAPA
-        this.world.setBounds(0, 0, 2640, 1440);
+        this.world.setBounds(0, 0, 1472, 1280);
 
         //  We're going to be using physics, so enable the Arcade Physics system
         this.physics.startSystem(Phaser.Physics.ARCADE);
