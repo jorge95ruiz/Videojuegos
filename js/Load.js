@@ -263,3 +263,50 @@ NombreJuego.Game.prototype = {
         }
     }
 }
+
+
+this.sprites = {
+
+            "images":[
+                {
+                    "id":"mapaLv1",
+                    "path":"assets/mapaLv1.png",
+                    "posX": 0,
+                    "posY": 0,
+                },
+                {
+                    "id":"water",
+                    "path":"assets/water.png",
+                    "posX": 0,
+                    "posY": 416,
+                },
+                {
+                    "id":"table",
+                    "path":"assets/table.png",
+                    "posX": 128,
+                    "posY": 128,
+                },
+                {
+                    "id":"blueHouse",
+                    "path":"assets/blueHouse.png",
+                    "posX": 544,
+                    "posY": 160,
+                },
+            ],
+            
+            "spritesheet": [
+                {
+                    "id":"jail",
+                    "path":"assets/jael.png",
+                    "width": 32,
+                    "height": 48,
+                },
+                {
+                    "id":"guardia",
+                    "path":"assets/guardia.png",
+                    "width": 32,
+                    "height": 48,
+                },
+            ]
+            
+        }

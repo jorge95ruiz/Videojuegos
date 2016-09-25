@@ -2,8 +2,8 @@ var NombreJuego = {};
 
 NombreJuego.Game = function(game){
     // define width and height of the game
-	NombreJuego.GAME_WIDTH = 800;
-	NombreJuego.GAME_HEIGHT = 608;
+	NombreJuego.GAME_WIDTH = 2640;
+	NombreJuego.GAME_HEIGHT = 1440;
 
     this.player = null;
     this.playerVel = 100;
@@ -22,28 +22,10 @@ NombreJuego.Game.prototype = {
 
             "images":[
                 {
-                    "id":"groundLv0",
-                    "path":"assets/groundLv0.png",
+                    "id":"mapaLv1",
+                    "path":"assets/mapaLv1.png",
                     "posX": 0,
                     "posY": 0,
-                },
-                {
-                    "id":"water",
-                    "path":"assets/water.png",
-                    "posX": 0,
-                    "posY": 416,
-                },
-                {
-                    "id":"table",
-                    "path":"assets/table.png",
-                    "posX": 128,
-                    "posY": 128,
-                },
-                {
-                    "id":"blueHouse",
-                    "path":"assets/blueHouse.png",
-                    "posX": 544,
-                    "posY": 160,
                 },
             ],
             
@@ -78,7 +60,7 @@ NombreJuego.Game.prototype = {
     create: function () {
         
         // BORDE DEL MAPA
-        this.world.setBounds(0, 0, 1216, 608);
+        this.world.setBounds(0, 0, 2640, 1440);
 
         //  We're going to be using physics, so enable the Arcade Physics system
         this.physics.startSystem(Phaser.Physics.ARCADE);
