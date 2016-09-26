@@ -2,7 +2,7 @@ var NombreJuego = {};
 
 NombreJuego.Game = function(game){
     // define width and height of the game
-	NombreJuego.GAME_WIDTH = 2640;
+	NombreJuego.GAME_WIDTH = 1944;
 	NombreJuego.GAME_HEIGHT = 1440;
 
     this.player = null;
@@ -19,11 +19,26 @@ NombreJuego.Game.prototype = {
         // pagina sprites: http://untamed.wild-refuge.net/rmxpresources.php?characters
         
         this.sprites = {
-
+            "jugador":
+            {
+                "id":"jail",
+                "path":"assets/jael.png",
+                "width": 32,
+                "height": 48,
+                "posX": 7,
+                "posY": 35,
+            },
+            "imagenNivel":
+            {
+                "id":"CiudadNatal",
+                "path":"assets/CiudadNatal.png",
+                "posX": 0,
+                "posY": 0,
+            },
             "images":[
                 {
-                    "id":"ciudadmontaña",
-                    "path":"assets/ciudadmontaña.png",
+                    "id":"table",
+                    "path":"assets/table.png",
                     "posX": 0,
                     "posY": 0,
                 },
@@ -31,56 +46,62 @@ NombreJuego.Game.prototype = {
             
             "spritesheet": [
                 {
-                    "id":"jail",
-                    "path":"assets/jael.png",
-                    "width": 32,
-                    "height": 48,
-                },
-                {
                     "id":"guardia",
                     "path":"assets/guardia.png",
                     "width": 32,
                     "height": 48,
+                    "posX": 8,
+                    "posY": 46,
                 },
             ]
             
         }
         
+        this.load.spritesheet(this.sprites.jugador.id, this.sprites.jugador.path,this.sprites.jugador.width, this.sprites.jugador.height);
+        
+        this.load.image(this.sprites.imagenNivel.id, this.sprites.imagenNivel.path);
+        
         for(imageItem of this.sprites.images){
             this.load.image(imageItem.id, imageItem.path);
-            
         }
+        
+        this.personajes = this.add.group();
+        this.personajes.enableBody = true;
+        var personajes= [];
     
-        for(imageItem of this.sprites.spritesheet){
-            this.load.spritesheet(imageItem.id, imageItem.path,imageItem.width, imageItem.height);
-            
-        }
+        //for(imageItem of this.sprites.spritesheet){
+        //    this.load.spritesheet(imageItem.id, imageItem.path,imageItem.width, imageItem.height);
+        //}
+        
     },
 
     create: function () {
         
         // BORDE DEL MAPA
-        this.world.setBounds(0, 0, 1472, 1280);
+        this.world.setBounds(0, 0, 1944, 1440);
 
         //  We're going to be using physics, so enable the Arcade Physics system
         this.physics.startSystem(Phaser.Physics.ARCADE);
         this.physics.arcade.gravity.y = 0;
+    
+        // cursores
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.add.sprite(this.sprites.imagenNivel.posX, this.sprites.imagenNivel.posY, this.sprites.imagenNivel.id);
         
         this.objects = this.add.group();
         this.objects.enableBody = true;
         var objects= [];
         
-        // Se añaden los sprites de entorno
         for(imageItem of this.sprites.images){
-            objects[imageItem.id] = this.objects.create(imageItem.posX, imageItem.posY, imageItem.id);
-            objects[imageItem.id].body.immovable = true;
+            
+            objects[imageItem.id] = this.objects.create(imageItem.posX*32, imageItem.posY*32, imageItem.id);
+            objects[imageItem.id].body.immovable = true; 
         }
         
-        // cursores
-        this.cursors = this.input.keyboard.createCursorKeys();
-
         // The player and its settings
-        this.player = this.add.sprite(32, 256, 'jail');
+        this.player = this.add.sprite(this.sprites.jugador.posX*32, this.sprites.jugador.posY*32, this.sprites.jugador.id);
+        this.player.scale.setTo(0.8);
         this.camera.follow(this.player);
         
         //  We need to enable physics on the player
@@ -101,24 +122,13 @@ NombreJuego.Game.prototype = {
         this.player.animations.add('right', [8,9,10,11], 4, true);
         this.player.animations.add('up', [12,13,14,15], 4, true);
         this.player.animations.add('down', [1,2,3, 0], 4, true);
-
-        // The player and its settings
-        this.guardia = this.add.sprite(700, this.world.height - 450, 'guardia');
-
-        //  We need to enable physics on the player
-        this.physics.arcade.enable(this.guardia);
-
-        //  Player physics properties. Give the little guy a slight bounce.
-        this.guardia.body.bounce.y = 0;
-        this.guardia.body.collideWorldBounds = true;
-
+        
     },
 
     update: function() {
 
         //  Collide the player and the stars with the platforms
         this.physics.arcade.collide(this.player, this.objects);
-        this.physics.arcade.collide(this.guardia, this.objects);
         
         //  Allow the player to jump if they are touching the ground.
         if (this.cursors.up.isDown)
